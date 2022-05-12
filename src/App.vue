@@ -2,14 +2,12 @@
   <div class="app-container">
     <h1>App 根组件</h1>
 
-    <a href="#">首页</a>
-    <a href="#">电影</a>
-    <a href="#">关于</a>
+    <a href="#/home">首页</a>
+    <a href="#/movie">电影</a>
+    <a href="#/about">关于</a>
     <hr />
 
-    <Home></Home>
-    <Movie></Movie>
-    <About></About>
+    <component :is="comName"></component>
   </div>
 </template>
 
@@ -26,6 +24,26 @@ export default {
     Home,
     Movie,
     About
+  },
+  data (){
+    return {
+      comName:Home
+    }
+  },
+  created() {
+    window.onhashchange=()=>{
+      switch (location.hash) {
+      case '#/hash':
+        this.comName='Home'
+        break
+        case '#/movie':
+          this.comName='Movie'
+          break
+        case '#/about':
+          this.comName='About'
+              break
+      }
+    }
   }
 }
 </script>
